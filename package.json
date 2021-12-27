@@ -2,9 +2,10 @@
   "name": "curso_rockteseat_ignite_desafio_trabalhando_com_middlewares",
   "version": "1.0.0",
   "description": "Este repositório contem o desafio do curso da rocketseat Ignite Trabalhando com Middlewares",
-  "main": "index.js",
+  "main": "src/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon src/server.js",
+    "test": "jest"
   },
   "keywords": [],
   "author": "Macmiller Duarte de Andrade",
