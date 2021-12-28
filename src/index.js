@@ -19,7 +19,7 @@ function checksExistsUserAccount(req, res, next) {
 
   if(!user) {
 
-    return res.status(400).json({error: 'Username not exists'});
+    return res.status(404).json({error: 'Username not exists'});
   }
 
   req.user = req;
@@ -28,8 +28,27 @@ function checksExistsUserAccount(req, res, next) {
 
 }
 
+
+// Função Middleware para verificar se o usúario é (Pro), ou se não é Pro, e se os (todos) já passaram de 10 para o tal usúario.
 function checksCreateTodosUserAvailability(req, res, next) {
-  // Complete aqui
+
+  const { user } = req;
+
+  if(! user.pro && user.todos < 10 || user.pro === true) {
+
+    return next();
+
+  }else if(! user.pro && user.todos === 10) {
+
+    return res.status(403).json({error: "user is not a pro user, or has passed the limit of all available !"});
+
+  } else {
+
+    return next();
+  }
+
+
+
 }
 
 function checksTodoExists(req, res, next) {
@@ -99,15 +118,18 @@ app.get('/todos', checksExistsUserAccount, (req, res) => {
 });
 
 app.post('/todos', checksExistsUserAccount, checksCreateTodosUserAvailability, (req, res) => {
+
   const { title, deadline } = req.body;
   const { user } = req;
 
   const newTodo = {
+
     id: uuidv4(),
     title,
     deadline: new Date(deadline),
     done: false,
     created_at: new Date()
+
   };
 
   user.todos.push(newTodo);
