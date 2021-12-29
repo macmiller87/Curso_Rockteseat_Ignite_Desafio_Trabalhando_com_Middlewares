@@ -51,8 +51,37 @@ function checksCreateTodosUserAvailability(req, res, next) {
 
 }
 
+
+// Funçaõ Middleware para verificar se o usúario existe, se o Id existe é um (Uuid), se o (TODO) pertence a este usúario.
 function checksTodoExists(req, res, next) {
-  // Complete aqui
+
+  const { username } = req.headers;
+  const { uuidv4 } = req.params;
+
+  const user = users.find((user) => user.username === username);
+  const todo = user.find((todos) => todos.uuidv4 === uuidv4);
+
+  if(! user) {
+
+    return res.status(404).json({error: "Username is not the same !"});
+
+  } else if(! todo) {
+
+    return res.status(400).json({error: "The user id is not the same !"});
+
+  }else if(! todo &&  ! user) {
+
+    return res.status(404).json({error: "The id does not belong to this user !"});
+
+  }else {
+
+    req.todo = todo;
+    req.user = user;
+
+  }
+
+  return next();
+
 }
 
 function findUserById(req, res, next) {
