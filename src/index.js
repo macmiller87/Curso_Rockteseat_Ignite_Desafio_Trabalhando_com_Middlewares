@@ -56,10 +56,10 @@ function checksCreateTodosUserAvailability(req, res, next) {
 function checksTodoExists(req, res, next) {
 
   const { username } = req.headers;
-  const { uuidv4 } = req.params;
+  const { id } = req.params;
 
   const user = users.find((user) => user.username === username);
-  const todo = user.find((todos) => todos.uuidv4 === uuidv4);
+  const todo = user.find((todos) => todos.id === id);
 
   if(! user) {
 
@@ -84,8 +84,24 @@ function checksTodoExists(req, res, next) {
 
 }
 
+
+// Função Middleware para verificar o (ID) do usúario
 function findUserById(req, res, next) {
-  // Complete aqui
+  
+  const { id } = req.params;
+
+  const todo = user.todos.find((user) => user.id === id);
+
+  if(todo) {
+
+    req.user = todo;
+
+  }else {
+
+    return res.status(404).json({error: "The user id is not the same !"});
+  }
+
+  return next();
 }
 
 app.post('/users', (req, res) => {
