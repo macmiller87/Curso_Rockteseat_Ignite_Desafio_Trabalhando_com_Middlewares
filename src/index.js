@@ -22,8 +22,7 @@ function checksExistsUserAccount(req, res, next) {
     return res.status(404).json({error: 'Username not exists'});
   }
 
-  req.user = req;
-
+  req.user = user;
   return next();
 
 }
@@ -34,20 +33,19 @@ function checksCreateTodosUserAvailability(req, res, next) {
 
   const { user } = req;
 
-  if(! user.pro && user.todos < 10 || user.pro === true) {
+  if(user.pro == false && user.todos < 10) {
 
     return next();
 
-  }else if(! user.pro && user.todos === 10) {
+  }else if(user.pro == true) {
+
+    return next();
+    
+  }else {
 
     return res.status(403).json({error: "user is not a pro user, or has passed the limit of all available !"});
 
-  } else {
-
-    return next();
   }
-
-
 
 }
 
@@ -59,28 +57,30 @@ function checksTodoExists(req, res, next) {
   const { id } = req.params;
 
   const user = users.find((user) => user.username === username);
-  const todo = user.find((todos) => todos.id === id);
+  const todo = users.find((todos) => todos.id === id);
 
   if(! user) {
 
     return res.status(404).json({error: "Username is not the same !"});
 
-  } else if(! todo) {
+  }else if(! todo) {
 
-    return res.status(400).json({error: "The user id is not the same !"});
+    return res.status(400).json({error: "The whole id is not the same !"});
 
-  }else if(! todo &&  ! user) {
+  }else if(! todo && ! user){
+
+    return res.status(404).json({error: "The user id is not the same !"});
+
+  }else if(user) {
+
+    req.user = user;
+    return next();
+
+  }else if(! todo && ! user) {
 
     return res.status(404).json({error: "The id does not belong to this user !"});
 
-  }else {
-
-    req.todo = todo;
-    req.user = user;
-
   }
-
-  return next();
 
 }
 
@@ -90,18 +90,19 @@ function findUserById(req, res, next) {
   
   const { id } = req.params;
 
-  const todo = user.todos.find((user) => user.id === id);
+  const todo = users.find((todos) => todos.id === id);
 
-  if(todo) {
+  if(! todo) {
 
-    req.user = todo;
+    return res.status(404).json({error: "The user id is not the same !"});  
 
   }else {
 
-    return res.status(404).json({error: "The user id is not the same !"});
+    req.user = todo;
+    return next();
+
   }
 
-  return next();
 }
 
 app.post('/users', (req, res) => {
