@@ -5,13 +5,14 @@
 # Resumo da aplicação
 
 - Nessa aplicação foi feita uma API, que é uma gerador de tarefas TODOS, onde o usúario pode cadastrar um name e um username, e a aplicação gera um ID para esse usúario, pegando também o horário automáticamente no sistema.
-- O usúario também pode craiar a sua lista de tarefas TODO, também é possível alterar o title, deadline e o status da tarefa para true, e o usuário para Pro.
+- O usúario também pode craiar a sua lista de tarefas TODO, também é possível alterar o title, deadline e o status da tarefa para true, o usuário para Pro, para conseguir cadastrar mais de 10 tarefas com o mesmo usuário.
 - o usúario também pode deletar o TODO, criar mais TODOS e etc. 
 
 ## Ferramentas 
 
 - Foi utilizado o Nodejs/javascript como linguagem para desenvolver o Backend.
 - framework/biblioteca Express, UUID, Cors e Nodemon.
+- Foi utilizado o Jest/Supertest para rodar os scripts dos testes unitários das funções Middlewares no terminal.
 - Foi utilizado a ferramenta/software Insomnia para trabalhar com as requisições HTTP.
 
 ## Requisitos
