@@ -33,14 +33,10 @@ function checksCreateTodosUserAvailability(req, res, next) {
 
   const { user } = req;
 
-  if(user.pro == false && user.todos < 10) {
+  if(user.pro == false && user.todos.length < 10 || user.pro == true) {
 
     return next();
 
-  }else if(user.pro == true) {
-
-    return next();
-    
   }else {
 
     return res.status(403).json({error: "user is not a pro user, or has passed the limit of all available !"});
@@ -57,30 +53,33 @@ function checksTodoExists(req, res, next) {
   const { id } = req.params;
 
   const user = users.find((user) => user.username === username);
-  const todo = users.find((todos) => todos.id === id);
 
   if(! user) {
 
-    return res.status(404).json({error: "Username is not the same !"});
+    return res.status(404).json({error: "Username is not found !"});
 
-  }else if(! todo) {
+  }
+  
+
+  const idValidated = validate(id);
+
+  if(! idValidated) {
 
     return res.status(400).json({error: "The whole id is not the same !"});
 
-  }else if(! todo && ! user){
+  }
 
-    return res.status(404).json({error: "The user id is not the same !"});
+  const todo = user.todos.find((todos) => todos.id === id);
 
-  }else if(user) {
+  if(! todo) {
 
-    req.user = user;
-    return next();
-
-  }else if(! todo && ! user) {
-
-    return res.status(404).json({error: "The id does not belong to this user !"});
+    return res.status(404).json({error: "The id of the whole is not the same id of the last user's whole !"});
 
   }
+
+  req.user = user;
+  req.todo = todo;
+  return next();
 
 }
 
@@ -90,15 +89,15 @@ function findUserById(req, res, next) {
   
   const { id } = req.params;
 
-  const todo = users.find((todos) => todos.id === id);
+  const user = users.find((user) => user.id === id);
 
-  if(! todo) {
+  if(! user) {
 
     return res.status(404).json({error: "The user id is not the same !"});  
 
   }else {
 
-    req.user = todo;
+    req.user = user;
     return next();
 
   }
@@ -128,7 +127,7 @@ app.post('/users', (req, res) => {
 
   users.push(user);
 
-  return response.status(201).json(user);
+  return res.status(201).json(user);
 
 });
 
