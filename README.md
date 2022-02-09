@@ -35,7 +35,7 @@
 - [x] Não deve ser possível Atualizar os dados da lista de tarefas criada, o status (done) que não possuir o mesmo ID da tarefa (todo) criada.
 - [x] Não deve ser possível deletar a lista de tarefas que não possuir o mesmo ID da tarefa (todo) criada.
 
-# Para rodar essa aplicação siga os seguintes passos:
+## Para rodar essa aplicação siga os seguintes passos:
 
 - Copie a url do repositório na aba `CODE`.
 - Com o git instalado, execute o seguinte comando => `git clone "Aqui vai a url copiada acima`.
