@@ -38,7 +38,7 @@
 ## Para rodar essa aplicação siga os seguintes passos:
 
 - Copie a url do repositório na aba `CODE`.
-- Com o git instalado, execute o seguinte comando => `git clone "Aqui vai a url copiada acima`.
+- Com o git instalado, execute o seguinte comando => `git clone "Aqui vai a url copiada acima"`.
 - Com o `Nodejs` instalado, Na sua IDE preferida, abra o terminal do `git`, e execute o seguinte comando => `npm update`, para baixar as dependências da aplicação.
 - Para rodar o projeto execute o seguinte comando => `npm run dev`.
 - Para testar o funcional da aplicação será necessário instalar o software `Insomnia` e criar as rotas da aplicação.
