@@ -34,3 +34,12 @@
 - [x] Não deve ser possível Atualizar os dados da lista de tarefas criada, (title) e (deadline) que não possuir o mesmo ID da tarefa (todo) criada. 
 - [x] Não deve ser possível Atualizar os dados da lista de tarefas criada, o status (done) que não possuir o mesmo ID da tarefa (todo) criada.
 - [x] Não deve ser possível deletar a lista de tarefas que não possuir o mesmo ID da tarefa (todo) criada.
+
+# Para rodar essa aplicação siga os seguintes passos:
+
+- Copie a url do repositório na aba `CODE`.
+- Com o git instalado, execute o seguinte comando => `git clone "Aqui vai a url copiada acima`.
+- Com o `Nodejs` instalado, Na sua IDE preferida, abra o terminal do `git`, e execute o seguinte comando => `npm update`, para baixar as dependências da aplicação.
+- Para rodar o projeto execute o seguinte comando => `npm run dev`.
+- Para testar o funcional da aplicação será necessário instalar o software `Insomnia` e criar as rotas da aplicação.
+- Para rodar os testes unitarios das rotas da aplicação execute o seguinte comando => `npm run test`
